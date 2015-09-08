@@ -4,7 +4,7 @@ html(lang="en")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1")
-    title #{title} : Express Website
+    title Node Auth
     // Bootstrap core CSS
     link(href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
     link(href="/stylesheets/style.css", rel="stylesheet")
@@ -20,11 +20,19 @@ html(lang="en")
           a.navbar-brand(href="/") Basic Express App
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li(class='active')
-              a(href="/") Home
+            li(class=(title == 'members'?'active':''))
+              a(href="/") Members
+            li(class=(title == 'register'?'active':''))
+              a(href="/users/register") Register
+            li(class=(title == 'login'?'active':''))
+              a(href="/users/login") Login
+          ul.nav.navbar-nav.navbar-right
+            li
+                a(href="/users/logout") Logout
         // /.nav-collapse
     
-    block content
+    .container
+        block content
     
     footer
         p &copy; AK 2015, All Rights Reserved!
