@@ -4,25 +4,59 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var expressValidator = require('express-validator');
+var passport = require('passport');
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
 var routes = require('./routes/index');
-var about = require('./routes/about');
-var contact = require('./routes/contact');
 var app = express();
 // view e   ngine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+//Handle file uploads
+// app.use(multer({
+//     dest: './uploads'
+// }));
 // uncomment after placing your favicon inB /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//Handle express sessions
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+//Validate
+app.use(expressValidator({
+    errorFormatter: function (param, msg, value) {
+        var namespace = param.split('.'), root = namespace.shift(), formParam = root;
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
 app.use('/', routes);
-app.use('/about', about);
-app.use('/contact', contact);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
