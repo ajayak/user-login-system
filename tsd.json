@@ -52,6 +52,9 @@
     },
     "multer/multer.d.ts": {
       "commit": "db33e4bd3629b93805d9b53c5fffc72f2c606477"
+    },
+    "bcrypt/bcrypt.d.ts": {
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     }
   }
 }

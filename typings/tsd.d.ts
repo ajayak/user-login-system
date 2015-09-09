@@ -14,3 +14,4 @@
 /// <reference path="passport-local/passport-local.d.ts" />
 /// <reference path="passport/passport.d.ts" />
 /// <reference path="multer/multer.d.ts" />
+/// <reference path="bcrypt/bcrypt.d.ts" />
