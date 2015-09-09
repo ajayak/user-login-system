@@ -17,7 +17,7 @@ var app = express();
 // view e   ngine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-//Handle file uploads
+// Handle file uploads
 // app.use(multer({
 //     dest: './uploads'
 // }));
