@@ -40,3 +40,25 @@ export function createUser(newUser, callback) {
 	// });
 	newUser.save(callback);
 }
+
+export function comparePassword(candidatePassword, hashedPassword, callback) {
+	// compare using bcrypt
+	// bcrypt.compare(candidatePassword, hashedPassword, (err, isMatch)=>{
+	//	if(err) return callback(err);
+	//	callback(null, isMatch);
+	// })
+	if (candidatePassword === hashedPassword) {
+		callback(null, true);
+	} else {
+		callback(null, false);
+	}
+}
+
+export function getUserByUsername(username, callback) {
+	var query = { username: username };
+	User.findOne(query, callback);
+}
+
+export function getUserById(id, callback) {
+	User.findById(id, callback);
+}

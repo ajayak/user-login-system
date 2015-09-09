@@ -36,3 +36,26 @@ function createUser(newUser, callback) {
     newUser.save(callback);
 }
 exports.createUser = createUser;
+function comparePassword(candidatePassword, hashedPassword, callback) {
+    // compare using bcrypt
+    // bcrypt.compare(candidatePassword, hashedPassword, (err, isMatch)=>{
+    //	if(err) return callback(err);
+    //	callback(null, isMatch);
+    // })
+    if (candidatePassword === hashedPassword) {
+        callback(null, true);
+    }
+    else {
+        callback(null, false);
+    }
+}
+exports.comparePassword = comparePassword;
+function getUserByUsername(username, callback) {
+    var query = { username: username };
+    exports.User.findOne(query, callback);
+}
+exports.getUserByUsername = getUserByUsername;
+function getUserById(id, callback) {
+    exports.User.findById(id, callback);
+}
+exports.getUserById = getUserById;
